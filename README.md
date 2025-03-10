@@ -31,7 +31,7 @@ A **Biblioteca API** é uma aplicação de exemplo para gerenciar um acervo de l
    Crie um arquivo `.env` na raiz do projeto e adicione a URI do banco de dados:
 
    ```properties
-   DATABASE_URI=postgres://usuario:senha@localhost:5432/nome_do_banco?schema=nome_do_schema
+   DATABASE_URI=postgres://usuario:senha@localhost:5432/nome_do_banco
    ```
 
 ## 🏃‍♂️ Executando a Aplicação
@@ -76,8 +76,12 @@ POST /api/livros
 
 ```json
 {
-  "title": "Título do Livro",
-  "author": "Autor do Livro"
+  "titulo": "Título do Livro",
+  "autor": "Autor do Livro",
+  "ano": 2021,
+  "editora": "Nome da Editora",
+  "isbn": "123-456-789",
+  "quantidade_disponivel": 10
 }
 ```
 
@@ -91,8 +95,12 @@ PUT /api/livros/:id
 
 ```json
 {
-  "title": "Novo Título do Livro",
-  "author": "Novo Autor do Livro"
+  "titulo": "Novo Título do Livro",
+  "autor": "Novo Autor do Livro",
+  "ano": 2022,
+  "editora": "Nova Editora",
+  "isbn": "987-654-321",
+  "quantidade_disponivel": 5
 }
 ```
 
@@ -108,7 +116,7 @@ DELETE /api/livros/:id
 biblioteca-api/
 ├── src/
 │   ├── config/
-│   │   └── database.js
+│   │   └── bancoDeDados.js
 │   ├── controllers/
 │   │   └── livroController.js
 │   ├── models/
