@@ -9,7 +9,7 @@ exports.obterTodosLivros = async (req, res) => {
         res.json(livros);
     } catch (error) {
         // Retorna um erro 500 se ocorrer um problema na busca
-        res.status(500).send('Erro ao buscar livros');
+        res.status(500).send(`Erro ao buscar livros: ${error}`);
     }
 };
 
@@ -23,7 +23,7 @@ exports.obterLivroPorId = async (req, res) => {
         res.json(livro);
     } catch (error) {
         // Retorna um erro 500 se ocorrer um problema na busca
-        res.status(500).send('Erro ao buscar livro');
+        res.status(500).send(`Erro ao buscar livro: ${error}`);
     }
 };
 
@@ -45,7 +45,7 @@ exports.criarLivro = async (req, res) => {
         res.status(201).json(livro);
     } catch (error) {
         // Retorna um erro 500 se ocorrer um problema na criação
-        res.status(500).send(`Erro ao criar livro ${error}`);
+        res.status(500).send(`Erro ao criar livro: ${error}`);
     }
 };
 
@@ -72,7 +72,7 @@ exports.atualizarLivro = async (req, res) => {
         res.json(livro);
     } catch (error) {
         // Retorna um erro 500 se ocorrer um problema na atualização
-        res.status(500).send('Erro ao atualizar livro');
+        res.status(500).send(`Erro ao atualizar livro: ${error}`);
     }
 };
 
@@ -89,6 +89,6 @@ exports.deletarLivro = async (req, res) => {
         res.json(livro);
     } catch (error) {
         // Retorna um erro 500 se ocorrer um problema na deleção
-        res.status(500).send('Erro ao deletar livro');
+        res.status(500).send(`Erro ao deletar livro: ${error}`);
     }
 };

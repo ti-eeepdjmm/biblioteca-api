@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/bancoDeDados');
 
 // Define o modelo da tabela 'livros' no banco de dados
-const Livro = sequelize.define('livros', {
+const Livro = sequelize.define('Livro', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     // Título do livro (campo obrigatório)
   titulo: { type: DataTypes.STRING, allowNull: false },
@@ -25,8 +25,10 @@ const Livro = sequelize.define('livros', {
     validate: { min: 0 } 
   }
 }, {
-    // Define o nome da tabela no banco de dados
-  tableName: 'livros',
+    // Define o nome da tabela no banco de dados como 'Livro'
+  tableName: 'Livro',
+  freezeTableName: true,
+    // Desativa a criação automática de colunas "createdAt
   timestamps: false
 });
 
