@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/bancoDeDados');
 
 // Define o modelo da tabela 'livros' no banco de dados
-const Livro = sequelize.define('Livro', {
+const Livro = sequelize.define('livros', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     // Título do livro (campo obrigatório)
   titulo: { type: DataTypes.STRING, allowNull: false },
