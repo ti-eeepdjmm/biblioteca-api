@@ -1,4 +1,4 @@
-const Livro = require('../models/Livro');
+const Livro = require('../models/').Livro;
 
 // Função para obter todos os livros
 exports.obterTodosLivros = async (req, res) => {
