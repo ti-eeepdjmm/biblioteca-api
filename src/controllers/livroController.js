@@ -20,7 +20,7 @@ exports.obterLivroPorId = async (req, res) => {
         const livro = await Livro.findByPk(req.params.id);
         if (!livro) return res.status(404).send('Livro não encontrado');
         // Retorna o livro encontrado em formato JSON
-        res.json(livro);
+        res.status(200).json(livro);
     } catch (error) {
         // Retorna um erro 500 se ocorrer um problema na busca
         res.status(500).send(`Erro ao buscar livro: ${error}`);
@@ -30,19 +30,10 @@ exports.obterLivroPorId = async (req, res) => {
 // Função para criar um novo livro
 exports.criarLivro = async (req, res) => {
     try {
-        // Desestrutura os atributos do corpo da requisição
-        const { titulo, autor, ano, editora, isbn, quantidade_disponivel } = req.body;
-        // Cria um novo livro no banco de dados
-        const livro = await Livro.create({
-            titulo,
-            autor,
-            ano,
-            editora,
-            isbn,
-            quantidade_disponivel
-        });
+        // Cria um novo livro com os atributos do corpo da requisição
+        const novoLivro = await Livro.create(req.body);
         // Retorna o livro criado em formato JSON com status 201
-        res.status(201).json(livro);
+        res.status(200).json({ message: 'Livro cadastrado com sucesso.', livro: novoLivro });
     } catch (error) {
         // Retorna um erro 500 se ocorrer um problema na criação
         res.status(500).send(`Erro ao criar livro: ${error}`);
@@ -56,20 +47,10 @@ exports.atualizarLivro = async (req, res) => {
         const livro = await Livro.findByPk(req.params.id);
         if (!livro) return res.status(404).send('Livro não encontrado');
 
-        // Desestrutura os atributos do corpo da requisição
-        const { titulo, autor, ano, editora, isbn, quantidade_disponivel } = req.body;
-        // Atualiza os atributos do livro
-        livro.titulo = titulo;
-        livro.autor = autor;
-        livro.ano = ano;
-        livro.editora = editora;
-        livro.isbn = isbn;
-        livro.quantidade_disponivel = quantidade_disponivel;
         // Salva as alterações no banco de dados
-        await livro.save();
-
+        await livro.update(req.body);
         // Retorna o livro atualizado em formato JSON
-        res.json(livro);
+        res.status(200).json({ message: 'Livro atualizado com sucesso.', livro });
     } catch (error) {
         // Retorna um erro 500 se ocorrer um problema na atualização
         res.status(500).send(`Erro ao atualizar livro: ${error}`);
@@ -81,12 +62,12 @@ exports.deletarLivro = async (req, res) => {
     try {
         // Busca um livro pelo ID no banco de dados
         const livro = await Livro.findByPk(req.params.id);
-        if (!livro) return res.status(404).send('Livro não encontrado');
+        if (!livro) return res.status(404).json({ error: 'Livro não encontrado.' });
 
         // Deleta o livro do banco de dados
         await livro.destroy();
-        // Retorna o livro deletado em formato JSON
-        res.json(livro);
+        // Retorna uma mensagem de sucesso em formato JSON
+        return res.status(200).json({ message: 'Livro deletado com sucesso.' });
     } catch (error) {
         // Retorna um erro 500 se ocorrer um problema na deleção
         res.status(500).send(`Erro ao deletar livro: ${error}`);

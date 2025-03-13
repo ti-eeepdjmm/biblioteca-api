@@ -26,7 +26,9 @@ const Livro = sequelize.define('Livro', {
   }
 }, {
     // Define o nome da tabela no banco de dados como 'Livro'
-  tableName: 'Livro',
+  tableName: 'livro',
+  schema: 'biblioteca',
+    // Desativa a criação automática de colunas "id", "createdAt" e "updatedAt"
   freezeTableName: true,
     // Desativa a criação automática de colunas "createdAt
   timestamps: false
