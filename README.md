@@ -28,10 +28,27 @@ A **Biblioteca API** é uma aplicação de exemplo para gerenciar um acervo de l
 
 3. Configure as variáveis de ambiente:
 
-   Crie um arquivo `.env` na raiz do projeto e adicione a URI do banco de dados:
+   Crie um arquivo `.env` na raiz do projeto e adicione as configurações do banco de dados:
 
    ```properties
-   DATABASE_URI=postgres://usuario:senha@localhost:5432/nome_do_banco
+   DB_USER=postgres
+   DB_PASS=toor3306
+   DB_NAME=projetos
+   DB_SCHEMA=biblioteca
+   DB_HOST=localhost
+   DB_PORT=5432
+   ```
+
+4. Execute as migrações do banco de dados:
+
+   ```sh
+   npx sequelize-cli db:migrate
+   ```
+
+5. Execute os seeds para popular o banco de dados com dados iniciais:
+
+   ```sh
+   npx sequelize-cli db:seed:all
    ```
 
 ## 🏃‍♂️ Executando a Aplicação
@@ -143,4 +160,3 @@ biblioteca-api/
 Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
-
