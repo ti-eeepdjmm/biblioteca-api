@@ -1,62 +1,64 @@
 'use strict';
+
+// Importa a classe base Model do Sequelize
 const { Model } = require('sequelize');
 
+// Exporta uma função que recebe a instância do Sequelize e os tipos de dados (DataTypes)
 module.exports = (sequelize, DataTypes) => {
+  
+  // Define a classe Livro, que herda da classe Model do Sequelize
   class Livro extends Model {
     /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
+     * Método usado para definir associações com outros modelos.
+     * Ele será chamado automaticamente pelo Sequelize no arquivo models/index.js.
      */
     static associate(models) {
-      // define association here
+      // Aqui poderiam ser definidos relacionamentos como:
+      // Livro.hasMany(models.Emprestimo);
     }
   }
+
+  // Inicializa o modelo Livro com seus atributos (colunas)
   Livro.init({
     id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+      type: DataTypes.INTEGER,        // Tipo inteiro
+      primaryKey: true,               // Chave primária
+      autoIncrement: true             // Valor autoincrementável
     },
-    // Título do livro (campo obrigatório)
     titulo: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING,         // Texto (varchar)
+      allowNull: false                // Campo obrigatório
     },
-    // Nome do autor do livro (campo obrigatório)
     autor: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    // Ano de publicação do livro (deve ser maior que 0)
     ano: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      validate: { min: 1 }
+      validate: { min: 1 }            // Validação: ano mínimo 1
     },
-    // Nome da editora do livro (campo opcional)
     editora: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING          // Campo opcional (não tem `allowNull: false`)
     },
-    // Código ISBN único do livro (campo obrigatório)
     isbn: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true                    // Valor único (não pode repetir)
     },
-    // Quantidade de exemplares disponíveis para empréstimo (não pode ser negativo)
     quantidade_disponivel: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      validate: { min: 0 }
+      validate: { min: 0 }            // Validação: valor mínimo 0 (não pode ser negativo)
     }
   }, {
-    sequelize,
-    modelName: 'Livro',
-    tableName: 'livro',
-    schema: 'biblioteca',
-    timestamps: false,
-    freezeTableName: true
+    sequelize,                         // Instância do Sequelize (obrigatória)
+    modelName: 'Livro',               // Nome do modelo (referência interna)
+    tableName: 'livro',               // Nome da tabela no banco de dados
+    schema: 'biblioteca',             // Schema em que a tabela está
+    timestamps: false,                // Desativa createdAt e updatedAt
+    freezeTableName: true             // Não pluraliza o nome da tabela
   });
+
   return Livro;
 };
